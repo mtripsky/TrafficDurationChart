@@ -1,0 +1,30 @@
+{
+  "name": "trafficdurationchart",
+  "version": "1.0.0",
+  "description": "Render data from database and plots duration of travelling form origin to target using Chart.js library",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "prod": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtripsky/TrafficDurationChart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mtripsky/TrafficDurationChart/issues"
+  },
+  "homepage": "https://github.com/mtripsky/TrafficDurationChart#readme",
+  "dependencies": {
+    "chart.js": "^2.9.1",
+    "chartjs-plugin-colorschemes": "^0.4.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
