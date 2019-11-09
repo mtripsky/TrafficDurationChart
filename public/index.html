@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exploring Chart.js</title>
+    <link href="./styles.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+</head>
+
+
+<body>
+    <script src="./scripts/myChart.js" type="text/javascript"></script>
+    <script>
+    function renderStats(form) {
+        const startDay = form.dateTimeStart.value;
+        const endDay = form.dateTimeEnd.value;
+
+        fetchData(startDay, endDay).then(function(data){
+            return data.json();
+        }).then( json => {
+            let data = [];
+            for(let i=0; i < json.length; i++)
+            {
+                const entry = JSON.parse(json[i].content);
+                data.push({
+                    x: moment(entry.dateTime, 'YYYY.MM.DD HH:mm'),
+                    y: entry.duration_in_traffic
+                });
+            }
+            renderChart(data);
+        });
+    }
+
+    async function fetchData(startDay, endDay) {
+        if(endDay == "")
+        {
+            return fetch("/api/traffic-duration/day-stats?startDay=" + startDay);
+        } else {
+            return fetch("/api/traffic-duration/days-stats?startDay=" + startDay + "&endDay=" + endDay);
+        }
+    }
+    </script>
+
+    <div id="container">
+        <form id="dayStats" onSubmit={Render}>
+            <label>Enter Start Day:</label>
+            <input type="text" id="dateTimeStart" placeholder="YYYY-MM-DD" required />
+            <label>Enter End Day:</label>
+            <input type="text" id="dateTimeEnd" placeholder="YYYY-MM-DD" />
+            <input type="button" value="Render" onClick="renderStats(this.form)" />
+        </form>
+         <canvas id="myChart"></canvas>
+    </div>
+</body>
+</html>
