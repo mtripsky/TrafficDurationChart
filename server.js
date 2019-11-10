@@ -6,7 +6,12 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/events',{ useNewUrlParser: true , useCreateIndex: true});
+const dotenv = require('dotenv').config();
+const user = process.env.dbUser;
+const password = process.env.dbPassword;
+const dbName = process.env.dbName;
+const dbUrl = "mongodb+srv://" + user + ":" + password + "@mylittlecluster-6yv9h.gcp.mongodb.net/" + dbName;
+mongoose.connect(dbUrl,{ useNewUrlParser: true , useCreateIndex: true});
 mongoose.Promise = global.Promise;
 
 // Middlewares (order is important)

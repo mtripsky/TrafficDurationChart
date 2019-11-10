@@ -36,6 +36,8 @@ function renderChart(data) {
 }
 
 function processData(data){
+    data.sort(compare);
+
     let dateTime;
     let datasetData = [];
     let i = 0;
@@ -81,6 +83,13 @@ function processData(data){
     }
 
     return datasetData;
+}
+
+function compare(a, b) {
+    if(a.x < b.x){
+        return -1;
+    }
+    return 1;
 }
 
 function getColors(n)
